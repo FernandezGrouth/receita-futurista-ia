@@ -11,19 +11,19 @@ const Index = () => {
   const [showMobileFeatures, setShowMobileFeatures] = useState(false);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-background via-background to-muted/20">
+    <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-sm">
+      <header className="sticky top-0 z-50 w-full glass">
         <div className="container flex h-16 items-center justify-between">
           <Logo />
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-4">
             <Button 
-              variant="outline" 
-              size="icon" 
-              className="md:hidden rounded-full border border-primary/20" 
+              variant="ghost" 
+              size="icon"
+              className="md:hidden rounded-full text-primary hover:text-primary hover:bg-primary/20"
               onClick={() => setShowMobileFeatures(!showMobileFeatures)}
             >
-              <Menu className="h-5 w-5 text-primary" />
+              <Menu className="h-5 w-5" />
               <span className="sr-only">Menu</span>
             </Button>
             <ThemeToggle />
@@ -32,26 +32,26 @@ const Index = () => {
       </header>
 
       {/* Main content */}
-      <main className="container flex-1 flex flex-col md:flex-row gap-4 py-6">
+      <main className="container flex-1 flex flex-col md:flex-row gap-8 py-12">
         <div className="w-full md:w-7/12 lg:w-8/12 flex flex-col">
-          <div className="mb-6">
-            <h1 className="text-4xl sm:text-5xl font-bold mb-3">
+          <div className="mb-8">
+            <h1 className="text-4xl sm:text-6xl font-bold mb-4 tracking-tight">
               Crie <span className="text-gradient">receitas</span> com os <br className="hidden md:block" />
               ingredientes que você tem
             </h1>
-            <p className="text-muted-foreground max-w-xl">
+            <p className="text-muted-foreground text-lg max-w-xl">
               Use nossa inteligência artificial para criar receitas deliciosas com os ingredientes disponíveis na sua cozinha.
             </p>
           </div>
 
           {/* Chat */}
-          <div className="flex-1 min-h-[500px] border border-border rounded-xl overflow-hidden glass shadow-lg">
+          <div className="flex-1 min-h-[500px] glass-card rounded-2xl overflow-hidden">
             <RecipeChat />
           </div>
         </div>
 
         {/* Features sidebar - desktop */}
-        <div className="hidden md:flex md:w-5/12 lg:w-4/12 flex-col gap-4">
+        <div className="hidden md:flex md:w-5/12 lg:w-4/12 flex-col gap-6">
           <FeatureCard 
             icon={Search}
             title="Pesquisa Inteligente"
@@ -102,7 +102,7 @@ const Index = () => {
       </main>
       
       {/* Footer */}
-      <footer className="border-t border-border py-6 bg-background/80 backdrop-blur-sm">
+      <footer className="py-6 glass mt-auto">
         <div className="container flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <Logo className="text-sm" />
