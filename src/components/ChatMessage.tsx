@@ -9,18 +9,22 @@ interface ChatMessageProps {
 }
 
 export const ChatMessage = ({ content, type }: ChatMessageProps) => {
+  const isRecipe = type === "ai" && content.startsWith("# ");
+
   return (
     <div
       className={cn(
-        "p-4 rounded-xl max-w-[85%] animate-fade-in",
+        "animate-fade-in",
         type === "user"
-          ? "ml-auto bg-primary text-primary-foreground rounded-br-sm"
-          : type === "ai"
-          ? "mr-auto glass rounded-bl-sm"
-          : "mx-auto bg-muted text-muted-foreground text-sm py-2"
+          ? "ml-auto bg-primary text-primary-foreground rounded-xl rounded-br-sm p-4 max-w-[85%]"
+          : type === "ai" && !isRecipe
+          ? "mr-auto glass rounded-xl rounded-bl-sm p-4 max-w-[85%]"
+          : isRecipe
+          ? "mr-auto w-full max-w-3xl"
+          : "mx-auto bg-muted text-muted-foreground text-sm py-2 px-4 rounded-xl"
       )}
     >
-      {content}
+      {isRecipe ? <RecipeChat.format(content) /> : content}
     </div>
   );
 };
