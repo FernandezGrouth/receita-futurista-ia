@@ -1,10 +1,10 @@
-
 import { useState } from "react";
 import { ChatContainer, Message } from "./ChatContainer";
 import { ChatInput } from "./ChatInput";
 import { toast } from "sonner";
 
 const initialMessages: Message[] = [];
+const WEBHOOK_URL = "https://natanfernades.app.n8n.cloud/webhook-test/959eb742-da6d-41d8-8c4d-83caaaac362b";
 
 export const RecipeChat = () => {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
@@ -34,6 +34,26 @@ ${ingredientsList.length > 2
     `;
   };
 
+  const triggerWebhook = async (ingredients: string) => {
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        mode: "no-cors",
+        body: JSON.stringify({
+          ingredients,
+          timestamp: new Date().toISOString(),
+        }),
+      });
+
+      console.log("Webhook triggered successfully");
+    } catch (error) {
+      console.error("Error triggering webhook:", error);
+    }
+  };
+
   const handleSend = (ingredients: string) => {
     if (!ingredients.trim()) return;
 
@@ -46,6 +66,9 @@ ${ingredientsList.length > 2
 
     setMessages((prev) => [...prev, userMessage]);
     setIsLoading(true);
+
+    // Trigger webhook
+    triggerWebhook(ingredients);
 
     // Simulate API delay
     setTimeout(() => {
